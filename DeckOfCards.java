@@ -1,6 +1,7 @@
 public class DeckOfCards {
     public static void main(String[] args) {
         testCard();
+        testHand();
     }
 
     /**
@@ -19,6 +20,37 @@ public class DeckOfCards {
         card1.set('Z', Card.Suit.clubs);
 
         System.out.println("\n" + testStatement);
+    }
+    
+    public static void testHand()
+    {
+       Card card1 = new Card('9', Card.Suit.spades);
+       Card card2 = new Card('3', Card.Suit.diamonds);
+       Card card3 = new Card('A', Card.Suit.clubs);
+       
+       Hand hand = new Hand();
+       
+       for (int i = 0; i < hand.MAX_CARDS/5; i++)
+       {
+          hand.takeCard(card3);
+          hand.takeCard(card1);
+          hand.takeCard(card2);
+          hand.takeCard(card3);
+          hand.takeCard(card1);
+       }    
+       
+       System.out.println(hand);
+       
+       System.out.println("Testing inspectCard()");
+       System.out.println(hand.inspectCard(4));
+       System.out.println(hand.inspectCard(99));
+       
+       for(int i = hand.getNumCards(); i > 0; i--)
+       {
+          System.out.println("Playing " + hand.playCard()); 
+       }
+       System.out.println("After playing all cards:\n" + hand);
+       
     }
 }
 
@@ -91,3 +123,83 @@ class Card {
         return false;
     }
 }
+
+class Hand
+{
+   public int MAX_CARDS = 50;
+   
+   private Card[] myCards;
+   private int numCards;
+   
+   public Hand()
+   {
+      myCards = new Card[MAX_CARDS];
+      numCards = 0;
+   }
+   
+   public void resetHand()
+   {
+      numCards = 0;
+   }
+   
+   public boolean takeCard(Card card)
+   {
+      Card newCard = new Card(card.getValue(), card.getSuit());
+      
+      if (numCards > MAX_CARDS)
+      {
+         return false;
+      }
+      else
+      {
+         myCards[numCards] = newCard;
+         numCards++;  
+         return true;
+      }
+   }
+   
+   public Card playCard()
+   {
+      numCards--;
+      Card card = new Card(myCards[numCards].getValue(), 
+            myCards[numCards].getSuit());
+      return card;
+   }
+   
+   public String toString()
+   {
+      String output = new String();
+      output = "Hand: ( ";
+      for (int i = 0; i < numCards; i++)
+      {
+         output += myCards[i] + ", ";
+         if (i > 1 && i % 6 == 0)
+         {
+            output += "\n";
+         }
+      }
+      output += " )";
+      return output;
+   }
+   
+   public int getNumCards()
+   {
+      return numCards;
+   }
+   
+   public Card inspectCard(int k)
+   {
+      Card card = new Card();
+      
+      if (k > numCards)
+      {
+         card.setErrorFlag(true);
+      }
+      else
+      {
+         card.set(myCards[k].getValue(), myCards[k].getSuit());
+      }
+      
+      return card;
+   }
+} 
