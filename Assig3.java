@@ -4,6 +4,7 @@ public class Assig3 {
     public static void main(String[] args) {
         testCard();
         testHand();
+        testDeck();
     }
 
     /**
@@ -18,7 +19,6 @@ public class Assig3 {
         String testStatement = card1.toString() + "\n" + card2.toString() + "\n" + card3.toString();
         System.out.println(testStatement);
 
-        card3.set('1', Card.Suit.diamonds);
         card1.set('Z', Card.Suit.clubs);
 
         System.out.println("\n" + testStatement);
@@ -53,6 +53,46 @@ public class Assig3 {
        }
        System.out.println("After playing all cards:\n" + hand);
        
+    }
+    
+    public static void testDeck(){
+    	System.out.println("\nPrinting out double deck in-order:");
+    	Deck deck = new Deck(2);
+    	for (int i = 0; i < 104; i++) {
+    		Card outputCard = deck.dealCard();
+    		System.out.print(outputCard.toString() + " / ");
+    	}
+    	System.out.println("\nDouble deck deal complete.");
+    	System.out.println("Reset and shuffle!");
+    	deck = new Deck(2);
+    	deck.shuffle();
+    	for (int i = 0; i < 104; i++) {
+    		Card outputCard = deck.dealCard();
+    		System.out.print(outputCard.toString() + " / ");
+    	}
+    	System.out.println("\nShuffled double deck deal complete.");
+    	
+    	System.out.println("\nPrinting out single deck in-order:");
+    	deck = new Deck(1);
+    	for (int i = 0; i < 52; i++) {
+    		Card outputCard = deck.dealCard();
+    		System.out.print(outputCard.toString() + " / ");
+    	}
+    	System.out.println("\nSingle deck deal complete.");
+    	System.out.println("Reset and shuffle!");
+    	deck = new Deck(1);
+    	deck.shuffle();
+    	for (int i = 0; i < 52; i++) {
+    		Card outputCard = deck.dealCard();
+    		System.out.print(outputCard.toString() + " / ");
+    	}
+    	System.out.println("\nShuffled single deck deal complete.");
+    	
+        System.out.println("\nTesting inspectCard()");
+    	deck = new Deck(1);
+        System.out.println(deck.inspectCard(0));
+        System.out.println(deck.inspectCard(51));
+        System.out.println(deck.inspectCard(99));
     }
 }
 
@@ -114,7 +154,7 @@ class Card {
     }
 
     private boolean isValid(char value, Suit suit) {
-        char[] validValues = new char[]{'2', '3', '4', '5', '6', '7', '8', '9', 'A', 'K', 'Q', 'J'};
+        char[] validValues = new char[]{'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'A', 'K', 'Q', 'J'};
 
         // search every valid value for a match - return true as soon as match found
         for (int i = 0; i < validValues.length; i++) {
@@ -214,6 +254,7 @@ class Deck {
 	private int topCard;
 	
 	public Deck(int numPacks) {
+		allocateMasterPack();
 		init(numPacks);
 	}
 	
@@ -223,13 +264,21 @@ class Deck {
 	}
 	
 	public void init(int numPacks) {
-		allocateMasterPack();
-		topCard = (52 * numPacks) - 1;
-		cards = new Card[52 * numPacks]
+		topCard = (52 * numPacks);
+		//Create number of cards required from how many packs needed
+		cards = new Card[52 * numPacks];
+		int j = 0;
+		//Loop for the amount of packs required
+		for (int i = 0; i < numPacks; i++) {
+			//Loop through every Card object of masterPack array to add to deck
+			for (Card card : masterPack) {
+				cards[j] = card;
+				j++;
+			}
+		}
 	}
 	
 	//Shuffling the cards using random number generator
-	//Select two cards at random and swap them?
 	public void shuffle() {
                 Random rand = new Random();
                 for (int j = 0; j < 3; j ++ ) {
@@ -240,15 +289,18 @@ class Deck {
                       cards[i] = temp;
                    }
                 }
-        }	
+    }	
 	//Returns and removes the card at top position of cards[]
 	public Card dealCard() {
+		//Check if cards are still available
 		if (topCard <= 0) {
 			return null;
 		}
-		
+		//Move onto next card
 		topCard --;
+		//Get card information
 		Card dealtCard = cards[topCard];
+		//Delete card info and return it
 		cards[topCard] = null;
 		return dealtCard;
 	}
@@ -259,7 +311,15 @@ class Deck {
 	}
 	//Access for an individual card
 	public Card inspectCard(int k) {
-
+		Card card = new Card();
+		if (k < 0 || k > topCard) {
+			card.setErrorFlag(true);
+			}
+	      else{
+	         card = cards[k];
+	      }
+	      
+	      return card;
 	}
 	
 	//Generating the deck
@@ -268,16 +328,18 @@ class Deck {
 			return;
 		}
 		
-		char[] valueArray = new char[]{'2', '3', '4', '5', '6', '7', '8', '9', 'A', 'K', 'Q', 'J'};
-		Card.Suit[] suitArray = new Card.Suit[] {Suit.clubs, Suit.diamonds, Suit.hearts, Suit.spades};
 		masterPack = new Card[52];
+		char[] valueArray = new char[]{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
 		
 		int i = 0;
-		for () {
-			for() {
-				masterPack[i] = new Card();
+		//Use for-each loop to go through all suits in the enum
+		for (Card.Suit suit : Card.Suit.values()) {
+			//Use for-each loop to assign a card with each value in the current suit
+			for (char value : valueArray) {
+				masterPack[i] = new Card(value, suit);
 				i++;
-			}
-		}
+	         }
+	      }
+
 	}
 }
