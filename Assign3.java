@@ -19,16 +19,37 @@ public class Assign3 {
       System.out.println("Number of Players " + numOfPlayers);
       
       Deck deck = new Deck();
-     // Hand hand = new Hand();
       
-      Hand [] playerHands = new Hand [numOfPlayers];
+      Hand[] playersHand = new Hand [numOfPlayers];
       
       for (int i = 0; i < numOfPlayers; i++) {
-         playerHands[i].
-         for (int i = 0; i < numOfPlayers; i++)
-          // playerHands[i].dealCard();
+         playersHand[i] = new Hand();
+         for (int j = 0; j < numOfPlayers; j++) {
+            deck.takeCard(deck.dealCard());
+         }
+      }
+      
+      for(int k = 0; k < 52; k++) {
+         hand.toString[k];
+         hand.resetHand[k];
+      }
+      
+      deck.init();
+      deck.shuffle();
+      
+      for (int n = 0; n < numOfPlayers; n++) {
+         playersHand[n] = new Hand();
+         for (int m = 0; m < numOfPlayers; m++) {
+            deck.takeCard(deck.dealCard());
+         }
+      }
+      
+      for(int t = 0; t < 52; t++) {
+         hand.toString[t];
+         hand.resetHand[t];
       }
    }
    
 }
 class Deck{};
+class Hand{};
