@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Assign3 {
 
@@ -21,35 +22,39 @@ public class Assign3 {
       Deck deck = new Deck();
       
       Hand[] playersHand = new Hand [numOfPlayers];
+      int dealLoop = (52 / numOfPlayers) + (52 % numOfPlayers);
       
-      for (int i = 0; i < numOfPlayers; i++) {
+      for (int i = 0; i < dealLoop; i++) {
          playersHand[i] = new Hand();
          for (int j = 0; j < numOfPlayers; j++) {
-            deck.takeCard(deck.dealCard());
+            playersHand[j].takeCard(deck.dealCard());
          }
       }
       
-      for(int k = 0; k < 52; k++) {
-         hand.toString[k];
-         hand.resetHand[k];
+      for (int i = 0; i < playersHand[i].getNumCards(); i++) {
+         System.out.println("Player " + i + "Hand ( ");
+         System.out.println(playersHand[i].toString());
+         System.out.println(" )");
+         
+         playersHand[i].resetHand();
       }
       
-      deck.init();
-      deck.shuffle();
+         deck.shuffle();
       
-      for (int n = 0; n < numOfPlayers; n++) {
-         playersHand[n] = new Hand();
-         for (int m = 0; m < numOfPlayers; m++) {
-            deck.takeCard(deck.dealCard());
+         for (int i = 0; i < dealLoop; i++) {
+            playersHand[i] = new Hand();
+            for (int j = 0; j < numOfPlayers; j++) {
+               playersHand[j].takeCard(deck.dealCard());
+            }
          }
-      }
-      
-      for(int t = 0; t < 52; t++) {
-         hand.toString[t];
-         hand.resetHand[t];
-      }
+         
+         for (int i = 0; i < playersHand[i].getNumCards(); i++) {
+            System.out.println("Player " + i + "Hand ( ");
+            System.out.println(playersHand[i].toString());
+            System.out.println(" )");
+            
+            playersHand[i].resetHand();
+         }
    }
    
 }
-class Deck{};
-class Hand{};
