@@ -1,3 +1,21 @@
+/**************************************************************
+ Tatiana Adams, Ryan Barrett, Matthew Taylor, Rowena Terrado
+ 24 March 2020
+ CST 338 Software Design
+ Assignment 3: Deck of Cards
+ 
+ This program is a base program for other card game programs. There are three 
+ main classes which are Card, Hand, and Deck. The card class is used to 
+ instantiate a single card object setting the value and the suite with 
+ validation. The Deck Hand class is used to instantiate each players hand as an 
+ individual object. This class uses the card and deck class to populate each of
+ these objects. This class also handles the functionality of removing cards 
+ from a player’s hands like "playing a card" and drawing a card from the deck. 
+ As well as validation. The Deck class instantiates n amount of decks for the 
+ game. It uses the card class to populate the set number of decks. It is
+ responsible for the functionality of shuffling and dealing cards. The deck 
+ class uses a static array that holds every card reference of the deck. 
+ ***************************************************************/
 import java.util.Scanner;
 import java.util.Random;
 
