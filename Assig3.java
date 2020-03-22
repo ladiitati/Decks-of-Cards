@@ -231,10 +231,16 @@ class Deck {
 	//Shuffling the cards using random number generator
 	//Select two cards at random and swap them?
 	public void shuffle() {
-		Random rand = new Random();
-		for (int i = 0; i < )
-	}
-	
+                Random rand = new Random();
+                for (int j = 0; j < 3; j ++ ) {
+                   for (int i = 0; i < cards.length; i ++ ){
+                      int randIndex = rand.nextInt(cards.length);
+                      Card temp = cards[randIndex];
+                      cards[randIndex] = cards[i];
+                      cards[i] = temp;
+                   }
+                }
+        }	
 	//Returns and removes the card at top position of cards[]
 	public Card dealCard() {
 		if (topCard <= 0) {
