@@ -247,12 +247,13 @@ class Hand
 } 
 
 class Deck {
-	public static final int MAX_CARDS = 6* 52;
+	public static final int MAX_CARDS = 6 * 52;
 	
 	private static Card[] masterPack;
-	private Card[] cards;
+	private Card[] cards = new Card[MAX_CARDS];
 	private int topCard;
 	
+	//Constructor that populates the Card array
 	public Deck(int numPacks) {
 		allocateMasterPack();
 		init(numPacks);
@@ -263,18 +264,22 @@ class Deck {
 		init(1);
 	}
 	
+	//Re-populates cards[] with the designated number of packs of cards
 	public void init(int numPacks) {
+		//Find total number of cards
 		topCard = (52 * numPacks);
-		//Create number of cards required from how many packs needed
-		cards = new Card[52 * numPacks];
-		int j = 0;
-		//Loop for the amount of packs required
-		for (int i = 0; i < numPacks; i++) {
-			//Loop through every Card object of masterPack array to add to deck
-			for (Card card : masterPack) {
-				cards[j] = card;
-				j++;
-			}
+	    if (topCard <= MAX_CARDS){
+	    	//Create number of cards required from how many packs needed
+	    	cards = new Card[52 * numPacks];
+	    	int j = 0;
+	    	//Loop for the amount of packs required
+	    	for (int i = 0; i < numPacks; i++) {
+	    		//Loop through every Card object of masterPack array to add to deck
+	    		for (Card card : masterPack) {
+	    			cards[j] = card;
+	    			j++;
+	    		}
+	    	}
 		}
 	}
 	
