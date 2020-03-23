@@ -1,4 +1,3 @@
-
 /**************************************************************
  Tatiana Adams, Ryan Barrett, Matthew Taylor, Rowena Terrado
  24 March 2020
@@ -42,22 +41,23 @@ public class Assign3 {
         Deck deck = new Deck();
 
         Hand[] playersHand = new Hand[numOfPlayers];
-        int dealLoop = (52 / numOfPlayers) + (52 % numOfPlayers);
+        
+        int deckSize = deck.getTopCard();
 
         for(int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
          }
    
-        for (int i = 0; i < dealLoop; i++) {
+        for (int i = 0; i < 52 ; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
-               playersHand[j].takeCard(deck.dealCard());
+               deckSize --;
             }
          }
 
         for (int i = 0; i < playersHand[i].getNumCards(); i++) {
-            System.out.println("Player " + i + "Hand ( ");
+            System.out.println("Player " + i + " Hand ( ");
             System.out.println(playersHand[i].toString());
-            System.out.println(" )");
+            System.out.println(")");
 
             playersHand[i].resetHand();
         }
@@ -68,9 +68,10 @@ public class Assign3 {
             playersHand[i] = new Hand();
          }
    
-        for (int i = 0; i < dealLoop; i++) {
+        for (int i = 0; i < 52; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
                playersHand[j].takeCard(deck.dealCard());
+               deckSize --;
             }
          }
 
@@ -172,6 +173,7 @@ class Hand {
     }
 
     public boolean takeCard(Card card) {
+       
         Card newCard = new Card(card.getValue(), card.getSuit());
 
         if (numCards > MAX_CARDS) {
@@ -235,6 +237,7 @@ class Deck {
 
     //Overload when no parameters
     public Deck() {
+        allocateMasterPack();
         init(1);
     }
 
