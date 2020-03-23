@@ -1,55 +1,3 @@
-public class DeckOfCards {
-    public static void main(String[] args) {
-        testCard();
-        testHand();
-    }
-
-    /**
-     * this function exists solely for testing the Card class.
-     * It can be safely removed later.
-     */
-    public static void testCard() {
-        Card card1 = new Card('K', Card.Suit.clubs);
-        Card card2 = new Card('A', Card.Suit.hearts);
-        Card card3 = new Card('D', Card.Suit.diamonds);
-
-        String testStatement = card1.toString() + "\n" + card2.toString() + "\n" + card3.toString();
-        System.out.println(testStatement);
-
-        card3.set('1', Card.Suit.diamonds);
-        card1.set('Z', Card.Suit.clubs);
-
-        System.out.println("\n" + testStatement);
-    }
-
-    public static void testHand() {
-        Card card1 = new Card('9', Card.Suit.spades);
-        Card card2 = new Card('3', Card.Suit.diamonds);
-        Card card3 = new Card('A', Card.Suit.clubs);
-
-        Hand hand = new Hand();
-
-        for (int i = 0; i < hand.MAX_CARDS / 5; i++) {
-            hand.takeCard(card3);
-            hand.takeCard(card1);
-            hand.takeCard(card2);
-            hand.takeCard(card3);
-            hand.takeCard(card1);
-        }
-
-        System.out.println(hand);
-
-        System.out.println("Testing inspectCard()");
-        System.out.println(hand.inspectCard(4));
-        System.out.println(hand.inspectCard(99));
-
-        for (int i = hand.getNumCards(); i > 0; i--) {
-            System.out.println("Playing " + hand.playCard());
-        }
-        System.out.println("After playing all cards:\n" + hand);
-
-    }
-}
 
 class Card {
     enum Suit {clubs, diamonds, hearts, spades}
@@ -184,3 +132,105 @@ class Hand {
         return card;
     }
 } 
+class Deck {
+	public static final int MAX_CARDS = 6 * 52;
+
+	private static Card[] masterPack;
+	private Card[] cards = new Card[MAX_CARDS];
+	private int topCard;
+
+	//Constructor that populates the Card array
+	public Deck(int numPacks) {
+		allocateMasterPack();
+		init(numPacks);
+	}
+
+	//Overload when no parameters
+	public Deck() {
+		init(1);
+	}
+
+	//Re-populates cards[] with the designated number of packs of cards
+	public void init(int numPacks) {
+		//Find total number of cards
+		topCard = (52 * numPacks);
+	    if (topCard <= MAX_CARDS){
+	    	//Create number of cards required from how many packs needed
+	    	cards = new Card[52 * numPacks];
+	    	int j = 0;
+	    	//Loop for the amount of packs required
+	    	for (int i = 0; i < numPacks; i++) {
+	    		//Loop through every Card object of masterPack array to add to deck
+	    		for (Card card : masterPack) {
+	    			cards[j] = card;
+	    			j++;
+	    		}
+	    	}
+		}
+	}
+
+	//Shuffling the cards using random number generator
+	public void shuffle() {
+                Random rand = new Random();
+                for (int j = 0; j < 3; j ++ ) {
+                   for (int i = 0; i < cards.length; i ++ ){
+                      int randIndex = rand.nextInt(cards.length);
+                      Card temp = cards[randIndex];
+                      cards[randIndex] = cards[i];
+                      cards[i] = temp;
+                   }
+                }
+    }	
+	//Returns and removes the card at top position of cards[]
+	public Card dealCard() {
+		//Check if cards are still available
+		if (topCard <= 0) {
+			return null;
+		}
+		//Move onto next card
+		topCard --;
+		//Get card information
+		Card dealtCard = cards[topCard];
+		//Delete card info and return it
+		cards[topCard] = null;
+		return dealtCard;
+	}
+
+	//Accessor for topCard
+	public int getTopCard() {
+		return topCard;
+	}
+	//Access for an individual card
+	public Card inspectCard(int k) {
+		Card card = new Card();
+		if (k < 0 || k > topCard) {
+			card.setErrorFlag(true);
+			}
+	      else{
+	         card = cards[k];
+	      }
+
+	      return card;
+	}
+
+	//Generating the deck
+	private static void allocateMasterPack() {
+		if (masterPack != null) {
+			return;
+		}
+
+		masterPack = new Card[52];
+		char[] valueArray = new char[]{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+
+		int i = 0;
+		//Use for-each loop to go through all suits in the enum
+		for (Card.Suit suit : Card.Suit.values()) {
+			//Use for-each loop to assign a card with each value in the current suit
+			for (char value : valueArray) {
+				masterPack[i] = new Card(value, suit);
+				i++;
+	         }
+	      }
+
+	}
+}
