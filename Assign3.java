@@ -42,47 +42,34 @@ public class Assign3 {
 
         Hand[] playersHand = new Hand[numOfPlayers];
         
-        int deckSize = deck.getTopCard();
-
         for(int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
          }
-   
-        for (int i = 0; i < deckSize ; i++) {
-            for (int j = 0; j < numOfPlayers; j++) {
-               playersHand[j].takeCard(deck.dealCard());
-               System.out.println("playersHand " + j + playersHand[j]);
-               deckSize --;
+        
+        //deals players card, print hands and resets them twice
+        for(int t = 0; t < 2; t++) {
+
+           int deckSize = deck.getTopCard(); 
+           //deals cards to player
+           for (int i = 0; i < deckSize ; i++) {
+               for (int j = 0; j < numOfPlayers; j++) {
+                  playersHand[j].takeCard(deck.dealCard());
+                  deckSize --;
+               }
             }
-         }
-
-        for (int i = 0; i < playersHand[i].getNumCards(); i++) {
-            System.out.println("Player " + i + " Hand ( ");
-            System.out.println(playersHand[i].toString());
-            System.out.println(")");
-
-            playersHand[i].resetHand();
-        }
-
-        deck.shuffle();
-
-        for(int i = 0; i < numOfPlayers; i++) {
-            playersHand[i] = new Hand();
-         }
    
-        for (int i = 0; i < deckSize; i++) {
-            for (int j = 0; j < numOfPlayers; j++) {
-               playersHand[j].takeCard(deck.dealCard());
-               deckSize --;
-            }
-         }
-
-        for (int i = 0; i < playersHand[i].getNumCards(); i++) {
-            System.out.println("Player " + i + "Hand ( ");
-            System.out.println(playersHand[i].toString());
-            System.out.println(" )");
-
-            playersHand[i].resetHand();
+           //prints out players hand and rests them
+           int i = 1 ;
+           for (Hand player: playersHand) {
+              System.out.println("player " + i + "  " + player);
+              playersHand[i-1].resetHand();          
+              i++;
+           }
+           //Shows player hands are empty
+           for (Hand player: playersHand) {
+              System.out.println("player " + i + "  " + player);        
+           }
+           deck.shuffle();
         }
     }
 
@@ -273,6 +260,7 @@ class Deck {
                 cards[i] = temp;
             }
         }
+        topCard = cards.length;
     }
 
     //Returns and removes the card at top position of cards[]
