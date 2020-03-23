@@ -50,7 +50,8 @@ public class Assign3 {
    
         for (int i = 0; i < 52 ; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
-               deckSize --;
+                playersHand[j].takeCard(deck.dealCard());
+                deckSize --;
             }
          }
 
