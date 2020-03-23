@@ -137,7 +137,8 @@ class Card {
     }
 
     private boolean isValid(char value, Suit suit) {
-        char[] validValues = new char[]{'2', '3', '4', '5', '6', '7', '8', '9', 'A', 'K', 'Q', 'J'};
+        char[] validValues = new char[]
+                {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'A', 'K', 'Q', 'J'};
 
         // search every valid value for a match - return true as soon as match found
         for (int i = 0; i < validValues.length; i++) {
@@ -302,7 +303,8 @@ class Deck {
         }
 
         masterPack = new Card[52];
-        char[] valueArray = new char[]{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+        char[] valueArray = new char[]
+                {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
 
         int i = 0;
         //Use for-each loop to go through all suits in the enum
