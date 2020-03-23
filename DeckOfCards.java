@@ -4,79 +4,81 @@
  24 March 2020
  CST 338 Software Design
  Assignment 3: Deck of Cards
- 
- This program is a base program for other card game programs. There are three 
- main classes which are Card, Hand, and Deck. The card class is used to 
- instantiate a single card object setting the value and the suite with 
- validation. The Deck Hand class is used to instantiate each players hand as an 
+
+ This program is a base program for other card game programs. There are three
+ main classes which are Card, Hand, and Deck. The card class is used to
+ instantiate a single card object setting the value and the suite with
+ validation. The Deck Hand class is used to instantiate each players hand as an
  individual object. This class uses the card and deck class to populate each of
- these objects. This class also handles the functionality of removing cards 
- from a player’s hands like "playing a card" and drawing a card from the deck. 
- As well as validation. The Deck class instantiates n amount of decks for the 
+ these objects. This class also handles the functionality of removing cards
+ from a player’s hands like "playing a card" and drawing a card from the deck.
+ As well as validation. The Deck class instantiates n amount of decks for the
  game. It uses the card class to populate the set number of decks. It is
- responsible for the functionality of shuffling and dealing cards. The deck 
- class uses a static array that holds every card reference of the deck. 
+ responsible for the functionality of shuffling and dealing cards. The deck
+ class uses a static array that holds every card reference of the deck.
  ***************************************************************/
+
 import java.util.Scanner;
 import java.util.Random;
 
 public class Assign3 {
 
-   public static void main(String[] args) {
-      
-      Scanner scannerObject = new Scanner(System.in);
+    public static void main(String[] args) {
 
-      int numOfPlayers = 0;
-      
-      do {
-         System.out.println("Enter How Many Players (1 - 10)");
-             numOfPlayers = scannerObject.nextInt();
-         
-      }while(numOfPlayers < 1 || numOfPlayers > 10);
-      
-      scannerObject.close();
-      
-      System.out.println("Number of Players " + numOfPlayers);
-      
-      Deck deck = new Deck();
-      
-      Hand[] playersHand = new Hand [numOfPlayers];
-      int dealLoop = (52 / numOfPlayers) + (52 % numOfPlayers);
-      
-      for (int i = 0; i < dealLoop; i++) {
-         playersHand[i] = new Hand();
-         for (int j = 0; j < numOfPlayers; j++) {
-            playersHand[j].takeCard(deck.dealCard());
-         }
-      }
-      
-      for (int i = 0; i < playersHand[i].getNumCards(); i++) {
-         System.out.println("Player " + i + "Hand ( ");
-         System.out.println(playersHand[i].toString());
-         System.out.println(" )");
-         
-         playersHand[i].resetHand();
-      }
-      
-         deck.shuffle();
-      
-         for (int i = 0; i < dealLoop; i++) {
+        Scanner scannerObject = new Scanner(System.in);
+
+        int numOfPlayers = 0;
+
+        do {
+            System.out.println("Enter How Many Players (1 - 10)");
+            numOfPlayers = scannerObject.nextInt();
+
+        } while (numOfPlayers < 1 || numOfPlayers > 10);
+
+        scannerObject.close();
+
+        System.out.println("Number of Players " + numOfPlayers);
+
+        Deck deck = new Deck();
+
+        Hand[] playersHand = new Hand[numOfPlayers];
+        int dealLoop = (52 / numOfPlayers) + (52 % numOfPlayers);
+
+        for (int i = 0; i < dealLoop; i++) {
             playersHand[i] = new Hand();
             for (int j = 0; j < numOfPlayers; j++) {
-               playersHand[j].takeCard(deck.dealCard());
+                playersHand[j].takeCard(deck.dealCard());
             }
-         }
-         
-         for (int i = 0; i < playersHand[i].getNumCards(); i++) {
+        }
+
+        for (int i = 0; i < playersHand[i].getNumCards(); i++) {
             System.out.println("Player " + i + "Hand ( ");
             System.out.println(playersHand[i].toString());
             System.out.println(" )");
-            
+
             playersHand[i].resetHand();
-         }
-   }
-   
+        }
+
+        deck.shuffle();
+
+        for (int i = 0; i < dealLoop; i++) {
+            playersHand[i] = new Hand();
+            for (int j = 0; j < numOfPlayers; j++) {
+                playersHand[j].takeCard(deck.dealCard());
+            }
+        }
+
+        for (int i = 0; i < playersHand[i].getNumCards(); i++) {
+            System.out.println("Player " + i + "Hand ( ");
+            System.out.println(playersHand[i].toString());
+            System.out.println(" )");
+
+            playersHand[i].resetHand();
+        }
+    }
+
 }
+
 class Card {
     enum Suit {clubs, diamonds, hearts, spades}
 
@@ -209,106 +211,108 @@ class Hand {
 
         return card;
     }
-} 
+}
+
 class Deck {
-	public static final int MAX_CARDS = 6 * 52;
+    public static final int MAX_CARDS = 6 * 52;
 
-	private static Card[] masterPack;
-	private Card[] cards = new Card[MAX_CARDS];
-	private int topCard;
+    private static Card[] masterPack;
+    private Card[] cards = new Card[MAX_CARDS];
+    private int topCard;
 
-	//Constructor that populates the Card array
-	public Deck(int numPacks) {
-		allocateMasterPack();
-		init(numPacks);
-	}
+    //Constructor that populates the Card array
+    public Deck(int numPacks) {
+        allocateMasterPack();
+        init(numPacks);
+    }
 
-	//Overload when no parameters
-	public Deck() {
-		init(1);
-	}
+    //Overload when no parameters
+    public Deck() {
+        init(1);
+    }
 
-	//Re-populates cards[] with the designated number of packs of cards
-	public void init(int numPacks) {
-		//Find total number of cards
-		topCard = (52 * numPacks);
-	    if (topCard <= MAX_CARDS){
-	    	//Create number of cards required from how many packs needed
-	    	cards = new Card[52 * numPacks];
-	    	int j = 0;
-	    	//Loop for the amount of packs required
-	    	for (int i = 0; i < numPacks; i++) {
-	    		//Loop through every Card object of masterPack array to add to deck
-	    		for (Card card : masterPack) {
-	    			cards[j] = card;
-	    			j++;
-	    		}
-	    	}
-		}
-	}
-
-	//Shuffling the cards using random number generator
-	public void shuffle() {
-                Random rand = new Random();
-                for (int j = 0; j < 3; j ++ ) {
-                   for (int i = 0; i < cards.length; i ++ ){
-                      int randIndex = rand.nextInt(cards.length);
-                      Card temp = cards[randIndex];
-                      cards[randIndex] = cards[i];
-                      cards[i] = temp;
-                   }
+    //Re-populates cards[] with the designated number of packs of cards
+    public void init(int numPacks) {
+        //Find total number of cards
+        topCard = (52 * numPacks);
+        if (topCard <= MAX_CARDS) {
+            //Create number of cards required from how many packs needed
+            cards = new Card[52 * numPacks];
+            int j = 0;
+            //Loop for the amount of packs required
+            for (int i = 0; i < numPacks; i++) {
+                //Loop through every Card object of masterPack array to add to deck
+                for (Card card : masterPack) {
+                    cards[j] = card;
+                    j++;
                 }
-    }	
-	//Returns and removes the card at top position of cards[]
-	public Card dealCard() {
-		//Check if cards are still available
-		if (topCard <= 0) {
-			return null;
-		}
-		//Move onto next card
-		topCard --;
-		//Get card information
-		Card dealtCard = cards[topCard];
-		//Delete card info and return it
-		cards[topCard] = null;
-		return dealtCard;
-	}
+            }
+        }
+    }
 
-	//Accessor for topCard
-	public int getTopCard() {
-		return topCard;
-	}
-	//Access for an individual card
-	public Card inspectCard(int k) {
-		Card card = new Card();
-		if (k < 0 || k > topCard) {
-			card.setErrorFlag(true);
-			}
-	      else{
-	         card = cards[k];
-	      }
+    //Shuffling the cards using random number generator
+    public void shuffle() {
+        Random rand = new Random();
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < cards.length; i++) {
+                int randIndex = rand.nextInt(cards.length);
+                Card temp = cards[randIndex];
+                cards[randIndex] = cards[i];
+                cards[i] = temp;
+            }
+        }
+    }
 
-	      return card;
-	}
+    //Returns and removes the card at top position of cards[]
+    public Card dealCard() {
+        //Check if cards are still available
+        if (topCard <= 0) {
+            return null;
+        }
+        //Move onto next card
+        topCard--;
+        //Get card information
+        Card dealtCard = cards[topCard];
+        //Delete card info and return it
+        cards[topCard] = null;
+        return dealtCard;
+    }
 
-	//Generating the deck
-	private static void allocateMasterPack() {
-		if (masterPack != null) {
-			return;
-		}
+    //Accessor for topCard
+    public int getTopCard() {
+        return topCard;
+    }
 
-		masterPack = new Card[52];
-		char[] valueArray = new char[]{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+    //Access for an individual card
+    public Card inspectCard(int k) {
+        Card card = new Card();
+        if (k < 0 || k > topCard) {
+            card.setErrorFlag(true);
+        } else {
+            card = cards[k];
+        }
 
-		int i = 0;
-		//Use for-each loop to go through all suits in the enum
-		for (Card.Suit suit : Card.Suit.values()) {
-			//Use for-each loop to assign a card with each value in the current suit
-			for (char value : valueArray) {
-				masterPack[i] = new Card(value, suit);
-				i++;
-	         }
-	      }
+        return card;
+    }
 
-	}
+    //Generating the deck
+    private static void allocateMasterPack() {
+        if (masterPack != null) {
+            return;
+        }
+
+        masterPack = new Card[52];
+        char[] valueArray = new char[]{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+
+        int i = 0;
+        //Use for-each loop to go through all suits in the enum
+        for (Card.Suit suit : Card.Suit.values()) {
+            //Use for-each loop to assign a card with each value in the current suit
+            for (char value : valueArray) {
+                masterPack[i] = new Card(value, suit);
+                i++;
+            }
+        }
+
+    }
 }
