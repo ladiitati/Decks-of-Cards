@@ -38,7 +38,7 @@ public class Assign3 {
 
         System.out.println("Number of Players " + numOfPlayers);
 
-        Deck deck = new Deck();
+        Deck deck = new Deck(1);
 
         Hand[] playersHand = new Hand[numOfPlayers];
         
@@ -48,10 +48,11 @@ public class Assign3 {
             playersHand[i] = new Hand();
          }
    
-        for (int i = 0; i < 52 ; i++) {
+        for (int i = 0; i < deckSize ; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
-                playersHand[j].takeCard(deck.dealCard());
-                deckSize --;
+               playersHand[j].takeCard(deck.dealCard());
+               System.out.println("playersHand " + j + playersHand[j]);
+               deckSize --;
             }
          }
 
@@ -69,7 +70,7 @@ public class Assign3 {
             playersHand[i] = new Hand();
          }
    
-        for (int i = 0; i < 52; i++) {
+        for (int i = 0; i < deckSize; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
                playersHand[j].takeCard(deck.dealCard());
                deckSize --;
