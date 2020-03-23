@@ -44,12 +44,15 @@ public class Assign3 {
         Hand[] playersHand = new Hand[numOfPlayers];
         int dealLoop = (52 / numOfPlayers) + (52 % numOfPlayers);
 
-        for (int i = 0; i < dealLoop; i++) {
+        for(int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
+         }
+   
+        for (int i = 0; i < dealLoop; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
-                playersHand[j].takeCard(deck.dealCard());
+               playersHand[j].takeCard(deck.dealCard());
             }
-        }
+         }
 
         for (int i = 0; i < playersHand[i].getNumCards(); i++) {
             System.out.println("Player " + i + "Hand ( ");
@@ -61,12 +64,15 @@ public class Assign3 {
 
         deck.shuffle();
 
-        for (int i = 0; i < dealLoop; i++) {
+        for(int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
+         }
+   
+        for (int i = 0; i < dealLoop; i++) {
             for (int j = 0; j < numOfPlayers; j++) {
-                playersHand[j].takeCard(deck.dealCard());
+               playersHand[j].takeCard(deck.dealCard());
             }
-        }
+         }
 
         for (int i = 0; i < playersHand[i].getNumCards(); i++) {
             System.out.println("Player " + i + "Hand ( ");
