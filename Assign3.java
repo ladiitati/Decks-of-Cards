@@ -49,20 +49,25 @@ public class Assign3 {
         //deals players card, print hands and resets them twice
         for(int t = 0; t < 2; t++) {
 
+         //deals cards to player
            int deckSize = deck.getTopCard(); 
-           //deals cards to player
-           for (int i = 0; i < deckSize ; i++) {
+           int counter = 0;
+           
+           while (counter < deckSize){
                for (int j = 0; j < numOfPlayers; j++) {
                   playersHand[j].takeCard(deck.dealCard());
-                  deckSize --;
+                  if (++counter == deckSize) {
+                      j = numOfPlayers;
+                  }
                }
             }
    
            //prints out players hand and rests them
            int i = 1 ;
            for (Hand player: playersHand) {
+              int up = i - 1;
               System.out.println("player " + i + "  " + player);
-              playersHand[i-1].resetHand();          
+              playersHand[up].resetHand();          
               i++;
            }
            //Shows player hands are empty
@@ -147,7 +152,7 @@ class Card {
 }
 
 class Hand {
-    public int MAX_CARDS = 50;
+    public int MAX_CARDS = 100;
 
     private Card[] myCards;
     private int numCards;
@@ -164,7 +169,6 @@ class Hand {
     public boolean takeCard(Card card) {
        
         Card newCard = new Card(card.getValue(), card.getSuit());
-
         if (numCards > MAX_CARDS) {
             return false;
         } else {
@@ -260,7 +264,6 @@ class Deck {
                 cards[i] = temp;
             }
         }
-        topCard = cards.length;
     }
 
     //Returns and removes the card at top position of cards[]
@@ -272,7 +275,7 @@ class Deck {
         //Move onto next card
         topCard--;
         //Get card information
-        Card dealtCard = cards[topCard];
+        Card dealtCard = cards[topCard];     
         //Delete card info and return it
         cards[topCard] = null;
         return dealtCard;
