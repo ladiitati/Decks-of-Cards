@@ -46,14 +46,14 @@ public class Assign3 {
             playersHand[i] = new Hand();
          }
         
+        int deckSize = deck.getTopCard();
+              
         //deals players card, print hands and resets them twice
         for(int t = 0; t < 2; t++) {
-
          //deals cards to player
-           int deckSize = deck.getTopCard(); 
            int counter = 0;
-           
-           while (counter < deckSize){
+
+           while (counter < deckSize) {
                for (int j = 0; j < numOfPlayers; j++) {
                   playersHand[j].takeCard(deck.dealCard());
                   if (++counter == deckSize) {
@@ -70,11 +70,7 @@ public class Assign3 {
               playersHand[up].resetHand();          
               i++;
            }
-           //Shows player hands are empty
-           for (Hand player: playersHand) {
-              System.out.println("player " + i + "  " + player);        
-           }
-           deck.shuffle();
+           deck.shuffle(1);
         }
     }
 
@@ -254,28 +250,30 @@ class Deck {
     }
 
     //Shuffling the cards using random number generator
-    public void shuffle() {
+    public void shuffle(int numPacks) {
         Random rand = new Random();
         for (int j = 0; j < 3; j++) {
             for (int i = 0; i < cards.length; i++) {
                 int randIndex = rand.nextInt(cards.length);
-                Card temp = cards[randIndex];
-                cards[randIndex] = cards[i];
-                cards[i] = temp;
+                Card temp = masterPack[randIndex];
+                masterPack[randIndex] = masterPack[i];
+                masterPack[i] = temp;
+
             }
         }
+        init(numPacks);
     }
 
     //Returns and removes the card at top position of cards[]
     public Card dealCard() {
         //Check if cards are still available
-        if (topCard <= 0) {
+        if (topCard < 0) {
             return null;
         }
         //Move onto next card
         topCard--;
         //Get card information
-        Card dealtCard = cards[topCard];     
+        Card dealtCard = cards[topCard];
         //Delete card info and return it
         cards[topCard] = null;
         return dealtCard;
