@@ -27,7 +27,7 @@ public class Assign3 {
         Scanner scannerObject = new Scanner(System.in);
 
         int numOfPlayers = 0;
-
+        //takes users input
         do {
             System.out.println("Enter How Many Players (1 - 10)");
             numOfPlayers = scannerObject.nextInt();
@@ -36,12 +36,12 @@ public class Assign3 {
 
         scannerObject.close();
 
-        System.out.println("Number of Players " + numOfPlayers);
+        System.out.println("Number of Players " + numOfPlayers + "\n");
 
         Deck deck = new Deck(1);
-
-        Hand[] playersHand = new Hand[numOfPlayers];
         
+        Hand[] playersHand = new Hand[numOfPlayers];
+        //instantiate players hands
         for(int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
          }
@@ -49,7 +49,8 @@ public class Assign3 {
         int deckSize = deck.getTopCard();
               
         //deals players card, print hands and resets them twice
-        for(int t = 0; t < 2; t++) {
+        for(int dealLoop = 0; dealLoop < 2; dealLoop++) {
+           
          //deals cards to player
            int counter = 0;
 
@@ -63,12 +64,12 @@ public class Assign3 {
             }
    
            //prints out players hand and rests them
-           int i = 1 ;
+           int playerCount = 1;
            for (Hand player: playersHand) {
-              int up = i - 1;
-              System.out.println("player " + i + "  " + player);
+              int up = playerCount - 1;
+              System.out.println("Player " + playerCount + "  " + player);
               playersHand[up].resetHand();          
-              i++;
+              playerCount++;
            }
            deck.shuffle(1);
         }
@@ -182,16 +183,21 @@ class Hand {
     }
 
     public String toString() {
-        String output = new String();
-        output = "Hand: ( ";
-        for (int i = 0; i < numCards; i++) {
-            output += myCards[i] + ", ";
-            if (i > 1 && i % 6 == 0) {
-                output += "\n";
-            }
-        }
-        output += " )";
-        return output;
+       String output = new String();
+       output = "Hand: ( ";
+       //add each card to output string
+       for (int i = 0; i < numCards; i++) {
+           output += myCards[i];
+           if (i + 1 != numCards) {
+               output += ", ";
+           }
+       }
+       output += " )\n";
+       //add newline every 100 characters
+       for (int i = 100; i <= output.length(); i += 100) {
+           output = output.substring(0, i) + "\n" + output.substring(i);
+       }
+       return output;
     }
 
     public int getNumCards() {
