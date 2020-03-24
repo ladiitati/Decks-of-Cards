@@ -42,47 +42,39 @@ public class Assign3 {
 
         Hand[] playersHand = new Hand[numOfPlayers];
         
-        int deckSize = deck.getTopCard();
-
         for(int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
          }
-   
-        for (int i = 0; i < deckSize ; i++) {
-            for (int j = 0; j < numOfPlayers; j++) {
-               playersHand[j].takeCard(deck.dealCard());
-               System.out.println("playersHand " + j + playersHand[j]);
-               deckSize --;
+        
+        //deals players card, print hands and resets them twice
+        for(int t = 0; t < 2; t++) {
+
+         //deals cards to player
+           int deckSize = deck.getTopCard(); 
+           int counter = 0;
+           
+           while (counter < deckSize){
+               for (int j = 0; j < numOfPlayers; j++) {
+                  playersHand[j].takeCard(deck.dealCard());
+                  if (++counter == deckSize) {
+                      j = numOfPlayers;
+                  }
+               }
             }
-         }
-
-        for (int i = 0; i < playersHand[i].getNumCards(); i++) {
-            System.out.println("Player " + i + " Hand ( ");
-            System.out.println(playersHand[i].toString());
-            System.out.println(")");
-
-            playersHand[i].resetHand();
-        }
-
-        deck.shuffle();
-
-        for(int i = 0; i < numOfPlayers; i++) {
-            playersHand[i] = new Hand();
-         }
    
-        for (int i = 0; i < deckSize; i++) {
-            for (int j = 0; j < numOfPlayers; j++) {
-               playersHand[j].takeCard(deck.dealCard());
-               deckSize --;
-            }
-         }
-
-        for (int i = 0; i < playersHand[i].getNumCards(); i++) {
-            System.out.println("Player " + i + "Hand ( ");
-            System.out.println(playersHand[i].toString());
-            System.out.println(" )");
-
-            playersHand[i].resetHand();
+           //prints out players hand and rests them
+           int i = 1 ;
+           for (Hand player: playersHand) {
+              int up = i - 1;
+              System.out.println("player " + i + "  " + player);
+              playersHand[up].resetHand();          
+              i++;
+           }
+           //Shows player hands are empty
+           for (Hand player: playersHand) {
+              System.out.println("player " + i + "  " + player);        
+           }
+           deck.shuffle();
         }
     }
 
@@ -160,7 +152,7 @@ class Card {
 }
 
 class Hand {
-    public int MAX_CARDS = 50;
+    public int MAX_CARDS = 100;
 
     private Card[] myCards;
     private int numCards;
@@ -177,7 +169,6 @@ class Hand {
     public boolean takeCard(Card card) {
        
         Card newCard = new Card(card.getValue(), card.getSuit());
-
         if (numCards > MAX_CARDS) {
             return false;
         } else {
@@ -284,7 +275,7 @@ class Deck {
         //Move onto next card
         topCard--;
         //Get card information
-        Card dealtCard = cards[topCard];
+        Card dealtCard = cards[topCard];     
         //Delete card info and return it
         cards[topCard] = null;
         return dealtCard;
