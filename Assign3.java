@@ -70,14 +70,12 @@ public class Assign3 {
            else {
                System.out.println("Here are the hands from a SHUFFLED deck:");
            }
-           int playerCount = 1;
-           for (Hand player: playersHand) {
-              int up = playerCount - 1;
-              System.out.println("Player " + playerCount + " " + player);
-              playersHand[up].resetHand();          
-              playerCount++;
+           
+           for(int i = 0; i < numOfPlayers; i++) {
+            System.out.print(playersHand[i].toString() + "\n");
+            playersHand[i].resetHand();
            }
-           //Reset deck for shuffle
+              
            deck = new Deck(1);
            deck.shuffle();
         }
