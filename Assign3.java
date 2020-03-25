@@ -25,18 +25,18 @@ public class Assign3 {
     public static void main(String[] args) {
 
         Scanner scannerObject = new Scanner(System.in);
-
+        testDeck();
         int numOfPlayers = 0;
         //takes users input
         do {
-            System.out.println("Enter How Many Players (1 - 10)");
+            System.out.println("Enter how many players (1 - 10):");
             numOfPlayers = scannerObject.nextInt();
 
         } while (numOfPlayers < 1 || numOfPlayers > 10);
 
         scannerObject.close();
 
-        System.out.println("Number of Players " + numOfPlayers + "\n");
+        System.out.println("Number of players: " + numOfPlayers + "\n");
 
         Deck deck = new Deck(1);
         
@@ -63,16 +63,61 @@ public class Assign3 {
                }
             }
    
-           //prints out players hand and rests them
+           //prints out players hand and resets them
+           if (dealLoop == 0) {
+               System.out.println("Here are the hands from an unshuffled deck:");
+           }
+           else {
+               System.out.println("Here are the hands from a SHUFFLED deck:");
+           }
            int playerCount = 1;
            for (Hand player: playersHand) {
               int up = playerCount - 1;
-              System.out.println("Player " + playerCount + "  " + player);
+              System.out.println("Player " + playerCount + " " + player);
               playersHand[up].resetHand();          
               playerCount++;
            }
            deck.shuffle(1);
         }
+    }
+    
+    //Deck test function from Phase 3
+    public static void testDeck(){
+        System.out.println("\nPrinting out double deck in-order:");
+        //Declare deck with a size of two packs and output cards
+        Deck testingDeck = new Deck(2);
+        for (int i = 0; i < 104; i++) {
+            Card outputCard = testingDeck.dealCard();
+            System.out.print(outputCard.toString() + " / ");
+        }
+        System.out.println("\nDouble deck deal complete.");
+        System.out.println("Let's reset and shuffle.");
+        //Reset the deck and shuffle, then output cards
+        testingDeck = new Deck(2);
+        testingDeck.shuffle(2);
+        for (int i = 0; i < 104; i++) {
+            Card outputCard = testingDeck.dealCard();
+            System.out.print(outputCard.toString() + " / ");
+        }
+        System.out.println("\nShuffled double deck deal complete.");
+        
+        System.out.println("\nPrinting out single deck in-order:");
+        //Declare deck with a size of one pack and output cards
+        testingDeck = new Deck(1);
+        for (int i = 0; i < 52; i++) {
+            Card outputCard = testingDeck.dealCard();
+            System.out.print(outputCard.toString() + " / ");
+        }
+        System.out.println("\nSingle deck deal complete.");
+        System.out.println("Let's reset and shuffle.");
+        //Reset the deck and shuffle, then output cards
+        testingDeck = new Deck(1);
+        testingDeck.shuffle(1);
+        for (int i = 0; i < 52; i++) {
+            Card outputCard = testingDeck.dealCard();
+            System.out.print(outputCard.toString() + " / ");
+        }
+        System.out.println("\nShuffled single deck deal complete.\n");
     }
 
 }
