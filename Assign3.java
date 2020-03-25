@@ -75,7 +75,7 @@ public class Assign3 {
             System.out.print(playersHand[i].toString() + "\n");
             playersHand[i].resetHand();
            }
-              
+           //Reset deck for shuffle   
            deck = new Deck(1);
            deck.shuffle();
         }
