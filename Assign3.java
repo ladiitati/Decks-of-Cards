@@ -39,50 +39,49 @@ public class Assign3 {
         System.out.println("Number of players: " + numOfPlayers + "\n");
 
         Deck deck = new Deck(1);
-        
+
         Hand[] playersHand = new Hand[numOfPlayers];
         //instantiate players hands
-        for(int i = 0; i < numOfPlayers; i++) {
+        for (int i = 0; i < numOfPlayers; i++) {
             playersHand[i] = new Hand();
-         }
-        
-        int deckSize = deck.getTopCard();
-              
-        //deals players card, print hands and resets them twice
-        for(int dealLoop = 0; dealLoop < 2; dealLoop++) {
-           
-         //deals cards to player
-           int counter = 0;
+        }
 
-           while (counter < deckSize) {
-               for (int j = 0; j < numOfPlayers; j++) {
-                  playersHand[j].takeCard(deck.dealCard());
-                  if (++counter == deckSize) {
-                      j = numOfPlayers;
-                  }
-               }
+        int deckSize = deck.getTopCard();
+
+        //deals players card, print hands and resets them twice
+        for (int dealLoop = 0; dealLoop < 2; dealLoop++) {
+
+            //deals cards to player
+            int counter = 0;
+
+            while (counter < deckSize) {
+                for (int j = 0; j < numOfPlayers; j++) {
+                    playersHand[j].takeCard(deck.dealCard());
+                    if (++counter == deckSize) {
+                        j = numOfPlayers;
+                    }
+                }
             }
-   
-           //prints out players hand and resets them
-           if (dealLoop == 0) {
-               System.out.println("Here are the hands from an unshuffled deck:");
-           }
-           else {
-               System.out.println("Here are the hands from a SHUFFLED deck:");
-           }
-           
-           for(int i = 0; i < numOfPlayers; i++) {
-            System.out.print(playersHand[i].toString() + "\n");
-            playersHand[i].resetHand();
-           }
-           //Reset deck for shuffle   
-           deck = new Deck(1);
-           deck.shuffle();
+
+            //prints out players hand and resets them
+            if (dealLoop == 0) {
+                System.out.println("Here are the hands from an unshuffled deck:");
+            } else {
+                System.out.println("Here are the hands from a SHUFFLED deck:");
+            }
+
+            for (int i = 0; i < numOfPlayers; i++) {
+                System.out.print(playersHand[i].toString() + "\n");
+                playersHand[i].resetHand();
+            }
+            //Reset deck for shuffle
+            deck = new Deck(1);
+            deck.shuffle();
         }
     }
-    
+
     //Deck test function from Phase 3
-    public static void testDeck(){
+    public static void testDeck() {
         System.out.println("\nPrinting out double deck in-order:");
         //Declare deck with a size of two packs and output cards
         Deck testingDeck = new Deck(2);
@@ -101,7 +100,7 @@ public class Assign3 {
             System.out.print(outputCard.toString() + " / ");
         }
         System.out.println("\nShuffled double deck deal complete.");
-        
+
         System.out.println("\nPrinting out single deck in-order:");
         //Declare deck with a size of one pack and output cards
         testingDeck = new Deck(1);
@@ -211,7 +210,7 @@ class Hand {
     }
 
     public boolean takeCard(Card card) {
-       
+
         Card newCard = new Card(card.getValue(), card.getSuit());
         if (numCards > MAX_CARDS) {
             return false;
@@ -230,21 +229,21 @@ class Hand {
     }
 
     public String toString() {
-       String output = new String();
-       output = "Hand: ( ";
-       //add each card to output string
-       for (int i = 0; i < numCards; i++) {
-           output += myCards[i];
-           if (i + 1 != numCards) {
-               output += ", ";
-           }
-       }
-       output += " )\n";
-       //add newline every 100 characters
-       for (int i = 100; i <= output.length(); i += 100) {
-           output = output.substring(0, i) + "\n" + output.substring(i);
-       }
-       return output;
+        String output = new String();
+        output = "Hand: ( ";
+        //add each card to output string
+        for (int i = 0; i < numCards; i++) {
+            output += myCards[i];
+            if (i + 1 != numCards) {
+                output += ", ";
+            }
+        }
+        output += " )\n";
+        //add newline every 100 characters
+        for (int i = 100; i <= output.length(); i += 100) {
+            output = output.substring(0, i) + "\n" + output.substring(i);
+        }
+        return output;
     }
 
     public int getNumCards() {
