@@ -259,8 +259,8 @@ class Deck {
     public void shuffle(int numPacks) {
         Random rand = new Random();
         for (int j = 0; j < 3; j++) {
-            for (int i = 0; i < cards.length; i++) {
-                int randIndex = rand.nextInt(cards.length);
+            for (int i = 0; i < masterPack.length; i++) {
+                int randIndex = rand.nextInt(masterPack.length);
                 Card temp = masterPack[randIndex];
                 masterPack[randIndex] = masterPack[i];
                 masterPack[i] = temp;
