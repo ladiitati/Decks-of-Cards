@@ -91,7 +91,7 @@ public class Assign3 {
         int testingDeckSize = testingDeck.getTopCard();
         for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard + " / ");
+            System.out.print(outputCard.toString() + " / ");
         }
         System.out.println("\nDouble deck deal complete.");
         System.out.println("Let's reset and shuffle.");
@@ -100,7 +100,7 @@ public class Assign3 {
         testingDeck.shuffle();
         for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard + " / ");
+            System.out.print(outputCard.toString() + " / ");
         }
         System.out.println("\nShuffled double deck deal complete.");
         
@@ -110,7 +110,7 @@ public class Assign3 {
         testingDeckSize = testingDeck.getTopCard();
         for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard + " / ");
+            System.out.print(outputCard.toString() + " / ");
         }
         System.out.println("\nSingle deck deal complete.");
         System.out.println("Let's reset and shuffle.");
@@ -119,7 +119,7 @@ public class Assign3 {
         testingDeck.shuffle();
         for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard + " / ");
+            System.out.print(outputCard.toString() + " / ");
         }
         System.out.println("\nShuffled single deck deal complete.\n");
     }
