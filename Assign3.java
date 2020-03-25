@@ -77,7 +77,9 @@ public class Assign3 {
               playersHand[up].resetHand();          
               playerCount++;
            }
-           deck.shuffle(1);
+           //Reset deck for shuffle
+           deck = new Deck(1);
+           deck.shuffle();
         }
     }
     
@@ -94,7 +96,7 @@ public class Assign3 {
         System.out.println("Let's reset and shuffle.");
         //Reset the deck and shuffle, then output cards
         testingDeck = new Deck(2);
-        testingDeck.shuffle(2);
+        testingDeck.shuffle();
         for (int i = 0; i < 104; i++) {
             Card outputCard = testingDeck.dealCard();
             System.out.print(outputCard.toString() + " / ");
@@ -112,7 +114,7 @@ public class Assign3 {
         System.out.println("Let's reset and shuffle.");
         //Reset the deck and shuffle, then output cards
         testingDeck = new Deck(1);
-        testingDeck.shuffle(1);
+        testingDeck.shuffle();
         for (int i = 0; i < 52; i++) {
             Card outputCard = testingDeck.dealCard();
             System.out.print(outputCard.toString() + " / ");
@@ -301,18 +303,16 @@ class Deck {
     }
 
     //Shuffling the cards using random number generator
-    public void shuffle(int numPacks) {
+    public void shuffle() {
         Random rand = new Random();
-        for (int j = 0; j < 3; j++) {
-            for (int i = 0; i < masterPack.length; i++) {
-                int randIndex = rand.nextInt(masterPack.length);
-                Card temp = masterPack[randIndex];
-                masterPack[randIndex] = masterPack[i];
-                masterPack[i] = temp;
-
-            }
+        for (int j = 0; j <= cards.length - 1; j++) {
+            //Find next random card position between 0 and total # of cards
+            int randIndex = rand.nextInt(cards.length);
+            //Swap selected card with current card
+            Card temp = cards[randIndex];
+            cards[randIndex] = cards[j];
+            cards[j] = temp;
         }
-        init(numPacks);
     }
 
     //Returns and removes the card at top position of cards[]
