@@ -88,36 +88,38 @@ public class Assign3 {
         System.out.println("\nPrinting out double deck in-order:");
         //Declare deck with a size of two packs and output cards
         Deck testingDeck = new Deck(2);
-        for (int i = 0; i < 104; i++) {
+        int testingDeckSize = testingDeck.getTopCard();
+        for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard.toString() + " / ");
+            System.out.print(outputCard + " / ");
         }
         System.out.println("\nDouble deck deal complete.");
         System.out.println("Let's reset and shuffle.");
         //Reset the deck and shuffle, then output cards
         testingDeck = new Deck(2);
         testingDeck.shuffle();
-        for (int i = 0; i < 104; i++) {
+        for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard.toString() + " / ");
+            System.out.print(outputCard + " / ");
         }
         System.out.println("\nShuffled double deck deal complete.");
         
         System.out.println("\nPrinting out single deck in-order:");
         //Declare deck with a size of one pack and output cards
         testingDeck = new Deck(1);
-        for (int i = 0; i < 52; i++) {
+        testingDeckSize = testingDeck.getTopCard();
+        for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard.toString() + " / ");
+            System.out.print(outputCard + " / ");
         }
         System.out.println("\nSingle deck deal complete.");
         System.out.println("Let's reset and shuffle.");
         //Reset the deck and shuffle, then output cards
         testingDeck = new Deck(1);
         testingDeck.shuffle();
-        for (int i = 0; i < 52; i++) {
+        for (int i = 0; i < testingDeckSize; i++) {
             Card outputCard = testingDeck.dealCard();
-            System.out.print(outputCard.toString() + " / ");
+            System.out.print(outputCard + " / ");
         }
         System.out.println("\nShuffled single deck deal complete.\n");
     }
